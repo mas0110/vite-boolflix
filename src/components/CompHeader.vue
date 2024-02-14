@@ -22,7 +22,7 @@ export default{
       aria-label="Search"
       v-model="store.searchText"
       >
-      <button class="btn btn-outline-success" type="submit"  @click.prevent="$emit('performSearch')">Cerca</button>
+      <button class="btn btn-outline-danger" type="submit"  @click.prevent="$emit('performSearch')">Cerca</button>
     </form>
   </div>
 </nav>

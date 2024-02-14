@@ -16,35 +16,61 @@ export default{
         }
     },
     methods: {
-    //   getFilm(){
-        // if( store.searchText != "" ){
-        // store.apiUrl += `&query=${store.searchText}`
-        // }
-    //   },
-      getSearchFilm(){
+      getSearchFilm( apiParams ){
+
+        store.FilmList = []
+
         if( store.searchText){
-        store.apiUrl += `&query=${store.searchText}`
-        }
-
-
         axios
-        .get(store.apiUrl)
-        .then(res => {
-            console.log(res.data.results)
-            store.FilmList = res.data.results
-        })
-      }
+            .get( store.endpointFilm, apiParams )
+            .then((res) => {
+                console.log(res.data.results)
+                store.FilmList = res.data.results
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
+        }
+      },
+      getSearchSeries( apiParams ){
+
+        store.SeriesList = []
+
+        if( store.searchText){
+        axios
+            // .get( `${store.endpointSeries}?api_key=${store.apiKey}&query=${store.searchText}`)
+            .get( store.endpointSeries, apiParams )
+            .then((res) => {
+                console.log(res.data.results)
+                store.SeriesList = res.data.results
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
+        }
+      },
+      Search(){
+        const apiParams = {
+            params: {
+                api_key: store.apiKey,
+                query: store.searchText,
+                language: 'it-IT'
+                
+            } 
+        }
+            this.getSearchFilm( apiParams )
+            this.getSearchSeries( apiParams )
+      },
     },
     mounted(){
-        this.getSearchFilm()
-        // this.getFilm()
+     
     }
 
 }
 </script>
 
 <template>
- <CompHeader  @performSearch="getSearchFilm"/>
+ <CompHeader  @performSearch="Search"/>
  <compMain/>
 </template>
 
