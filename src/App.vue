@@ -42,7 +42,7 @@ export default{
             .get( store.endpointSeries, apiParams )
             .then((res) => {
                 console.log(res.data.results)
-                store.SeriesList = res.data.results
+                store.FilmList = res.data.results
             })
             .catch((err) =>{
                 console.log(err)
