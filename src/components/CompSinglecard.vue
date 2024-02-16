@@ -26,16 +26,6 @@ methods:{
                 return language
         }
     },
-    getStar(voto) {
-        let stelle = '';
-        // Itera da 0 fino a voto - 1 per aggiungere una stella per ogni unità
-        for (let i = 0; i < voto; i++) {
-          stelle += '★';
-        }
-        return stelle;
-    }
-
-
 }
 }
 </script>
@@ -55,7 +45,13 @@ methods:{
                     width="24" 
                     :alt="element.original_language">
                 </figure>
-                <span>voto:{{ getStar(Math.min(5, Math.max(1, element.vote_average))) }}</span>
+                <ul class="d-flex gap-2">
+                    <span>voto: </span>
+                    <li v-for="index in Math.ceil((element.vote_average / 2))" :key="index">
+                        <i>&#9733;</i>
+                    </li>
+                </ul>
+
                 <p class="mt-2">{{ element.overview }}</p>
             </div>
         </div>
@@ -91,5 +87,8 @@ overflow: auto;
     .text{
     display: block;
 }
+}
+ul li{
+    list-style: none;
 }
 </style>
